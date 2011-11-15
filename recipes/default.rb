@@ -18,5 +18,27 @@
 # limitations under the License.
 
 package "stud" do
-	action :upgrade
+	action [:upgrade]
+end
+
+
+service "stud" do
+	supports :restart => true
+	action [:start]
+end
+
+template "/etc/stud/stud.ipv4.conf"
+	source	"stud.ipv4.conf.erb"
+	owner	"root"
+	group	"root"
+	mode	"0644"
+	notifies  :restart, service[stud]
+end
+
+template "/etc/stud/stud.ipv6.conf"
+        source          "stud.ipv6.conf.erb"
+        owner           "root"
+        group           "root"
+        mode            "0644"
+        notifies        :restart, service[stud]
 end
