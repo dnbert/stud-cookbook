@@ -1,7 +1,6 @@
 #
-# Author:: Brett Gailey <brett.gailey@dreamhost.com>
 # Cookbook Name:: stud
-# Recipe:: default
+# Attributes:: default
 #
 # Copyright 2011, DreamHost Web Hosting
 #
@@ -16,29 +15,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-package "stud" do
-	action [:upgrade]
-end
-
-
-service "stud" do
-	supports :restart => true
-	action [:start]
-end
-
-template "/etc/stud/stud.ipv4.conf"
-	source	"stud.ipv4.conf.erb"
-	owner	"root"
-	group	"root"
-	mode	"0644"
-	notifies  :restart, service[stud]
-end
-
-template "/etc/stud/stud.ipv6.conf"
-        source          "stud.ipv6.conf.erb"
-        owner           "root"
-        group           "root"
-        mode            "0644"
-        notifies        :restart, service[stud]
-end
+default["stud"]["lport"] = "443"
+default["stud"]["rport"] = "4443"
+default["stud"]["v4local"] = "127.0.0.1"
+default["stud"]["v6local"] = "::1"
