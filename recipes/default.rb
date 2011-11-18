@@ -18,7 +18,7 @@
 # limitations under the License.
 
 package "stud" do
-	action [:upgrade]
+	action [:install]
 end
 
 
