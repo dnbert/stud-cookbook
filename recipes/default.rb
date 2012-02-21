@@ -3,7 +3,7 @@
 # Cookbook Name:: stud
 # Recipe:: default
 #
-# Copyright 2011, DreamHost Web Hosting
+# Copyright 2011, DreamHost.com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+include_recipe "apt"
+
+apt_repository "ndn" do
+	uri "https://debian.di.newdream.net"
+	distribution node['lsb']['codename']
+	components ['ndn']
+	key "http://debian.di.newdream.net/packages@debian.newdream.net.gpg.key"
+	action :add
+end
 
 package "stud" do
 	action [:install]
